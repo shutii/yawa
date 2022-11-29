@@ -14,15 +14,81 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 	</head>
 	<body>
 
-    
-
 	<div class="container4">
-    <div class="containerLook">
+
+	<table class="kini" id="t2">	
+
+		<div class="welcome">
+            <h2>Welcome, <?php echo $_SESSION['fname']; echo " ", $_SESSION['lname'];?></h2>
+        </div><br>
+
+        <div class="title">
+            <h1>Order Page</h1>
+        </div>
+            <tr>
+                   <th>Code</th>
+                   <th>Category Name</th>
+                   <th>Product Name</th>
+                   <th>Quantity</th>
+                   <th>Price</th>
+                   <th>Status</th>
+               </tr>
+
+
+               <?php
+                   $sqlQuery = "SELECT prod.id, prod.prodcode, cat.categoryName, cat.status, prod.productName,  prod.qnty,prod.price FROM prod INNER JOIN cat ON prod.category = cat.id";
+                   $res = $con->query($sqlQuery);
+                   while($row =mysqli_fetch_object($res))
+                   {
+                       ?>
+                           <tr class="active-row">
+                               <td><?php echo $row->prodcode?></td>
+                               <td><?php echo $row->categoryName?></td>
+                               <td><?php echo $row->productName?></td>
+                               <td><?php echo $row->qnty?></td>
+                               <td><?php echo $row->price?></td>
+                               <td><?php echo $row->status?></td>
+                           </tr>
+                   <?php
+                   }   
+                ?>
+            </table>
+
+    <div class="containerLook1">
         <div class="inputBox">
-            <input type="text" name="uname" id="lookAcc" onkeyup="search()" required="required">
+            <input type="text" name="uname" id="lookup" onkeyup="search()" required="required">
             <span>Search Product</span>
         </div>
     </div>
+
+	<script>
+        function search() 
+        {
+            var input, filter, table, tr, td, txtValue;
+            input = document.getElementById("lookup");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("t1");
+            tr = table.getElementsByTagName("tr");
+            for (let i = 1; i < tr.length; i++) 
+            {
+                // td = tr[i].getElementsByTagName("td")[1];
+                td = tr[i];
+                if (td) 
+                {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) 
+                    {
+                        tr[i].style.display = "";
+                    } 
+                    else 
+                    {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+    </script>
+
     <link rel="stylesheet" href="style.css">
 	<div class = "container-fluid bg-2 text-center">
 		<div class ="col-sm-8">
@@ -34,10 +100,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                         <h1>Order Page</h1> -->
 			<form class = "form-horizontal" id="formInvoice">
 				<table class = "table table-bordered">
-					<caption> Add Products </caption>
 					<tr>
 						<th>Product Code</th>
-						<th>Product Name</th>
+						<th>Product</th>
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>Amount</th>
@@ -59,16 +124,28 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                             <!-- <input type = "text" class = "form-control" id ="pname" name= "pname" placeholder = "Product Name" required/> -->
                         </td>
 						<td>
-                            <input type = "text" class = "form-control" id ="price" name= "price" placeholder = "Price" required/>
+							<div class="inputBox1">
+                                <input type="text" class="form-control" name="price" id="price" required="required">
+                                <span>Price</span>
+                            </div>
+                            <!-- <input type = "text" class = "form-control" id ="price" name= "price" placeholder = "Price" required/> -->
                         </td>
 						<td>
-                            <input type = "number" class = "form-control" id ="qty" name= "qty" placeholder = "Quantity" required/>
+							<div class="inputBox1">
+                                <input type="number" class="form-control" name="qty" id="qty" required="required">
+                                <span>Quantity</span>
+                            </div>
+                            <!-- <input type = "number" class = "form-control" id ="qty" name= "qty" placeholder = "Quantity" required/> -->
                         </td>
 						<td>
-                            <input type = "text" class = "form-control" id ="total" name= "total" placeholder = "Total" required/>
+							<div class="inputBox1">
+                                <input type="text" class="form-control" name="total" id="total" required="required">
+                                <span>Total</span>
+                            </div>
+                            <!-- <input type = "text" class = "form-control" id ="total" name= "total" placeholder = "Total" required/> -->
                         </td>
 						<td>
-                            <button type = "button" class = "btn btn-primary" id ="add" name= "add" onclick="addProduct()"> Add </button>
+                            <button type = "button" class = "btn btn-success" id ="add" name= "add" onclick="addProduct()"> Add </button>
                         </td>
 					</tr>
 				</table>
@@ -79,8 +156,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 				<thead>
 					<tr>
 						<th style = "width: 40px">Remove</th>				
-						<th>Product Code</th>				
-						<th>Product Name</th>				
+						<th>Code</th>				
+						<th>Product</th>				
 						<th>Price</th>				
 						<th>Quantity</th>				
 						<th>Amount</th>				
@@ -94,20 +171,41 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 		</div>
 		<div class = "col-sm-4" align="right">
 			<div class="form-group" align="left">
-				<label>Total</label>
-				<input type="text" class="form-control" id="finaltotal" name = "finaltotal" placeholder="Total" required/>
+				<!-- <label>Total</label> -->
+				<!-- <input type="text" class="form-control" id="finaltotal" name = "finaltotal" placeholder="Total" required/> -->
+				<div class="inputBox2">
+                    <input type="text" class="form-control" name="finaltotal" id="finaltotal" required="required">
+                    <span>Total</span>
+                </div>
 			</div>
 			<div class="form-group" align="left">
-				<label>Pay Amount</label>
-				<input type="text" class="form-control" id="pay" name = "pay" placeholder="Pay" required/>
+				<!-- <label>Payment Amount</label> -->
+				<!-- <input type="text" class="form-control" id="pay" name = "pay" placeholder="Pay" required/> -->
+				<div class="inputBox2">
+                    <input type="text" class="form-control" name="pay" id="pay" required="required">
+                    <span>Payment</span>
+                </div>
 			</div>
 			<div class="form-group" align="left">
-				<label>Balance</label>
-				<input type="text" class="form-control" id="bal" name = "bal" placeholder="Balance" required/>
+				<!-- <label>Balance</label> -->
+				<!-- <input type="text" class="form-control" id="bal" name = "bal" placeholder="Balance" required/> -->
+				<div class="inputBox2">
+                    <input type="text" class="form-control" name="bal" id="bal" required="required">
+                    <span>Balance</span>
+                </div>
 			</div>
 		</div>
 	</div>
+		<div class="btnContainer1">
+            <form method="POST" action="home.php">
+                <div class="inputBtn"><input type="submit" value="Back"></div>
+            </form>
+            <form method="POST" action="logout.php">
+               <div class="inputBtn"><input type="submit" value="Logout"></div>
+            </form>
+        </div>
     </div>
+
 	<script src = "components/jquery/dist/jquery.js"></script>
 	<script src = "components/jquery/dist/jquery.min.js"></script>
 	<script src = "components/jquery.validate.min.js"></script>
@@ -166,7 +264,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                 price : $("#price").val(),
                 qty : $("#qty").val(),
                 total : $("#total").val(),
-                button : '<button type ="button" class="button" class="btn btn-warning">delete</button>'
+                button : '<button type ="button" class="button" class="btn btn-danger">delete</button>'
             };
 
             addRow(products);
@@ -179,7 +277,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
             var $table = $('#product_list tbody');
             var $row =
                 $("<tr>" + 
-                    "<td><Button type='button' name='record' class='btn btn-warning btn-xs' name='record' onclick='deleterow(this)'>Delete</td>"+
+                    "<td><Button type='button' name='record' class='btn btn-danger btn-xs' name='record' onclick='deleterow(this)'>Delete</td>"+
                     "<td>" + products.procode + "</td>" + 
                     "<td>" + products.pname + "</td>" + 
                     "<td>" + products.price + "</td>" + 

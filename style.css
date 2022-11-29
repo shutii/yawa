@@ -583,7 +583,7 @@ body
 
 .kini {
     /* display: flex; */
-    /* position: relative; */
+    position: relative;
     /* width: 100vh; */
     border-collapse: collapse;
     /* border-radius: 500px; */
@@ -605,7 +605,7 @@ body
 .kini thead tr {
     background-color: #009879;
     color: #ffffff;
-    /* text-align: left; */
+    /* text-align: center; */
     transition: 0.5s;
 }
 

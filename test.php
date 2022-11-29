@@ -25,13 +25,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
         <div class="title">
             <h1>Order Page</h1>
         </div>
-            <tr>
+            	<tr>
                    <th>Code</th>
                    <th>Category Name</th>
                    <th>Product Name</th>
                    <th>Quantity</th>
                    <th>Price</th>
                    <th>Status</th>
+				   <th>Action</th>
                </tr>
 
 
@@ -48,11 +49,18 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                                <td><?php echo $row->qnty?></td>
                                <td><?php echo $row->price?></td>
                                <td><?php echo $row->status?></td>
+							   <td>
+                                	<div class="link">
+										<a class="updlink" href="upProd.php?id=<?php echo $row->id?>">View</a>
+                       					| 
+                       					<a class="dellink" href="delProd.php?id=<?php echo $row->id?>">Buy</a>
+                                	</div>
+                                </td> 
                            </tr>
                    <?php
                    }   
                 ?>
-            </table>
+    </table>
 
     <div class="containerLook1">
         <div class="inputBox">
@@ -155,7 +163,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 				<caption>Products</caption>
 				<thead>
 					<tr>
-						<th style = "width: 40px">Remove</th>				
+						<th style = "width: 40px">Oprtion</th>				
 						<th>Code</th>				
 						<th>Product</th>				
 						<th>Price</th>				

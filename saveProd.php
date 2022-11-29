@@ -2,11 +2,12 @@
     require_once "connectdb.php";
     
     $cat = $_POST['category'];
+    $prodcode = $_POST['prodcode'];
     $prodName = $_POST['productName'];
     $price = $_POST['price'];
     $quantity = $_POST['qnty'];
 
-    $sql = "INSERT INTO prod (productName,category, price, qnty) values ('$prodName', '$cat','$price', '$quantity')";
+    $sql = "INSERT INTO prod (prodcode, productName,category, price, qnty) values ('$prodcode','$prodName', '$cat','$price', '$quantity')";
 
     $res  = $con->query($sql);
     if($res)

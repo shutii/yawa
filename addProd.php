@@ -38,9 +38,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
     
 <br>
 <div class="inputbox">
-<input type="text" name="productName" required="required">
-<span>Product Name</span>
-    </div>
+    <input type="text" name="prodcode" required="required">
+    <span>Product Code</span>
+</div>
+<br>
+<div class="inputbox">
+    <input type="text" name="productName" required="required">
+    <span>Product Name</span>
+</div>
     <br>
     <div class="inputbox">
     <input type="text" name="price" required="required">

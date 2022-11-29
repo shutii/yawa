@@ -19,11 +19,12 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
     
     if($_POST)
     {
+        $pcode = $_POST ['prodcode'];
         $pname = $_POST ['productName'];
         $cat = $_POST ['category'];
         $price = $_POST ['price'];
         $qnty = $_POST ['qnty'];
-        $queryUpdate = "UPDATE prod SET productName= '$pname', category= '$cat', price= '$price', qnty= '$qnty' WHERE id = '$id '";  
+        $queryUpdate = "UPDATE prod SET prodcode = '$pcode', productName= '$pname', category= '$cat', price= '$price', qnty= '$qnty' WHERE id = '$id '";  
         $res = $con->query($queryUpdate);
         // echo "\nSuccessfully Updated!";
         header("Location: home.php?Product_Successfully_Updated!");
@@ -67,8 +68,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
     
 <br>
 <div class="inputbox">
-<input type="text" name="productName" required="required" value="<?php echo $row->productName ?>">
-<span>Product Name</span>
+<input type="text" name="prodcode" required="required" value="<?php echo $row->prodcode ?>">
+<span>Product Code</span>
+    </div>
+    <br>
+    <div class="inputbox">
+        <input type="text" name="productName" required="required" value="<?php echo $row->productName ?>">
+        <span>Product Name</span>
     </div>
     <br>
     <div class="inputbox">

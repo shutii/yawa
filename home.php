@@ -70,7 +70,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
         <h2>Product List</h2>
     </div>
 <tr>
-       <th>I.D</th>
+       <th>Code</th>
        <th>Category Name</th>
        <th>Product Name</th>
        <th>Quantity</th>
@@ -81,13 +81,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 
 
    <?php
-       $sqlQuery = "SELECT prod.id, cat.categoryName, cat.status, prod.productName,  prod.qnty,prod.price FROM prod INNER JOIN cat ON prod.category = cat.id";
+       $sqlQuery = "SELECT prod.prodcode, prod.id, cat.categoryName, cat.status, prod.productName,  prod.qnty,prod.price FROM prod INNER JOIN cat ON prod.category = cat.id";
        $res = $con->query($sqlQuery);
        while($row =mysqli_fetch_object($res))
        {
            ?>
                <tr class="active-row">
-                   <td><?php echo $row->id?></td>
+                   <td><?php echo $row->prodcode?></td>
                    <td><?php echo $row->categoryName?></td>
                    <td><?php echo $row->productName?></td>
                    <td><?php echo $row->qnty?></td>
@@ -107,7 +107,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 </table>
 
 <div class="btnContainer">
-<form method="POST" action="test.php">
+<form method="POST" action="order.php">
    <div class="inputBtn1"><input type="submit" value="Order"></div>
 </form>
 

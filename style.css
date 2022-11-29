@@ -177,13 +177,14 @@ body
 
 .containerLook1
 {
-    position:absolute;
-    display: flex;
+    /* position:absolute;
+    display: flex; */
     padding-top: 25px;
     padding-bottom: 25px;
-    min-height: 10vh;
-    margin: -270px auto 345px;
-    left: 1070px;
+    /* min-height: 10vh; */
+    margin: -380px auto 280px 800px;
+    /* left: 500px; */
+    
     max-width: 70%;
     min-width: 450px;
 }

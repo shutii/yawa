@@ -91,7 +91,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                    <td><?php echo $row->categoryName?></td>
                    <td><?php echo $row->productName?></td>
                    <td><?php echo $row->qnty?></td>
-                   <td><?php echo $row->price?></td>
+                   <td><span>₱ </span><?php echo $row->price?></td>
                    <td><?php echo $row->status?></td>
                    <td>
                        <div class="link">

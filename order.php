@@ -13,6 +13,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 		<link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
+    <form action="saveOrder.php" method="post">
+    <div class="containerLook1">
+        <div class="inputBox">
+            <input type="text" name="uname" id="lookup" onkeyup="search()" required="required">
+            <span>Search Product</span>
+        </div>
+    </div>
 
 	<div class="container4">
 
@@ -32,7 +39,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                    <th>Quantity</th>
                    <th>Price</th>
                    <th>Status</th>
-				   <th>Action</th>
                </tr>
 
 
@@ -47,27 +53,20 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                                <td><?php echo $row->categoryName?></td>
                                <td><?php echo $row->productName?></td>
                                <td><?php echo $row->qnty?></td>
-                               <td><?php echo $row->price?></td>
+                               <td><span>₱ </span><?php echo $row->price?></td>
                                <td><?php echo $row->status?></td>
-							   <td>
-                                	<div class="link">
-										<a class="updlink" href="upProd.php?id=<?php echo $row->id?>">View</a>
-                       					| 
-                       					<a class="dellink" href="delProd.php?id=<?php echo $row->id?>">Buy</a>
-                                	</div>
-                                </td> 
                            </tr>
                    <?php
                    }   
                 ?>
     </table>
 
-    <div class="containerLook1">
+    <!-- <div class="containerLook1">
         <div class="inputBox">
             <input type="text" name="uname" id="lookup" onkeyup="search()" required="required">
             <span>Search Product</span>
         </div>
-    </div>
+    </div> -->
 
 	<script>
         function search() 
@@ -98,7 +97,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
     </script>
 
     <link rel="stylesheet" href="style.css">
-	<div class = "container-fluid bg-2 text-center">
+	
+    <div class = "container-fluid bg-2 text-center">
 		<div class ="col-sm-8">
                 <!-- <div class="welcome">
                     <h2>Welcome, <?php echo $_SESSION['fname']; echo " ", $_SESSION['lname'];?></h2>
@@ -175,9 +175,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 				
 				</tbody>
 			</table>
-
 		</div>
-		<div class = "col-sm-4" align="right">
+        
+		<div class = "col-sm-4" align="right" >
 			<div class="form-group" align="left">
 				<!-- <label>Total</label> -->
 				<!-- <input type="text" class="form-control" id="finaltotal" name = "finaltotal" placeholder="Total" required/> -->
@@ -214,13 +214,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 				<!-- <label>Balance</label> -->
 				<!-- <input type="text" class="form-control" id="bal" name = "bal" placeholder="Balance" required/> -->
 				<div class="inputBox1">
-                    <form method="POST" action="order.php">
-                        <div class="inputBtn"><input type="submit" value="Purchase"></div>
+                    <form>
+                        <div class="inputBtn"><input type="submit" name="purchase" value="Purchase"></div>
                     </form>
                 </div>
 			</div>
 		</div>
-	</div>
+	</div><br>
 		<div class="btnContainer1">
             <form method="POST" action="home.php">
                 <div class="inputBtn"><input type="submit" value="Back"></div>
@@ -252,7 +252,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 					success: function(data){
 						$("#pname").val(data[0].productName);
 						$("#price").val(data[0].price);
-						$("#qty").focus();
+                        $("#qty").val(1).focus();
 					}
 				});
 			});
@@ -262,8 +262,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
         {
 			$("#price, #qty").on("keydown keyup click",qty);
 			function qty(){
-				var sum = (
-					Number($("#price").val())*Number($("#qty").val())
+                var sum = (
+				Number($("#price").val())*Number($("#qty").val())
 				);
 				$('#total').val(sum);
 				console.log(sum);
@@ -274,12 +274,15 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 			$("#pay,#finaltotal, #disc").on("keydown keyup click",finaltot);
 			function finaltot(){
                 var disc = (
-					Number($("#finaltotal").val()) * Number($("#disc").val()) /100
+					Number($("#disc").val()) * Number($("#finaltotal").val()) /100
 				);
+                var result = (
+                    Number($("#pay").val()) + disc
+                );
 				var sum = (
-					Number($("#pay").val()) - Number($("#finaltotal").val())
+					result - Number($("#finaltotal").val())
 				);
-				$('#bal').val(sum+disc);
+				$('#bal').val(sum);
 			}
 		});
 
@@ -340,6 +343,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 	
 	</script>
 	
+    </form>
 	</body>
 </html>
 

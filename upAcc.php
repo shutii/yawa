@@ -74,14 +74,14 @@
         </div>
         <div class="inputBox">
             <input type="password" name="pass" required="required">
-            <span>Password</span>
+            <span>New Password</span>
         </div>
     
         <div class="inputBtn">
             <input type="submit" name="reg" value="Update">
         </div>
 
-        <p style="color:rgb(133, 133, 133)">Change your mind? <a href="index.php" class="logh">Go back</a></p>
+        <p style="color:rgb(133, 133, 133)">Change your mind? <a href="users.php" class="logh">Go back</a></p>
     </div>
 </form>
 </body>

@@ -5,9 +5,9 @@
     $prodcode = $_POST['prodcode'];
     $prodName = $_POST['productName'];
     $price = $_POST['price'];
-    $quantity = $_POST['qnty'];
+    $qnty = $_POST['qnty'];
 
-    $sql = "INSERT INTO prod (prodcode, productName,category, price, qnty) values ('$prodcode','$prodName', '$cat','$price', '$quantity')";
+    $sql = "INSERT INTO prod (prodcode, productName,category, price, qnty) values ('$prodcode','$prodName', '$cat','$price', '$qnty')";
 
     $res  = $con->query($sql);
     if($res)

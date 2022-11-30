@@ -13,13 +13,13 @@ if ($conn->connect_error) {
 }
 
 $pro_code = $_POST["procode"];
-$stmt = $conn->prepare("SELECT id, prodcode, productName, price FROM prod WHERE prodcode = ?");
+$stmt = $conn->prepare("SELECT id, prodcode, productName, price, qnty FROM prod WHERE prodcode = ?");
 $stmt->bind_param("s",$pro_code);
-$stmt->bind_result($id,$product_code,$productName,$price); 
+$stmt->bind_result($id,$product_code,$productName,$price,$qnty); 
 
 if($stmt->execute()){
 	while($stmt->fetch()){
-		$output[] = array("id"=>$id,"prodcode"=>$product_code,"productName"=>$productName,"price"=>$price);
+		$output[] = array("id"=>$id,"prodcode"=>$product_code,"productName"=>$productName,"price"=>$price,"qnty"=>$qnty);
 	}
 	echo json_encode($output);
 }

@@ -348,7 +348,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                     "<td><Button type='button' name='record' class='btn btn-danger btn-xs' name='record' onclick='deleterow(this)'>Delete</td>"+
                     "<td>" + products.procode + "</td>" + 
                     "<td>" + products.pname + "</td>" + 
-                    "<td>" + products.price + "</td>" + 
+                    "<td>" +("₱ ")+ + products.price + "</td>" + 
                     "<td>" + products.qty + "</td>" + 
                     "<td>" + products.total + "</td>" + 
                     "</tr>"

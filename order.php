@@ -186,6 +186,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                     <span>Total</span>
                 </div>
 			</div>
+            <div class="form-group" align="left">
+				<!-- <label>Payment Amount</label> -->
+				<!-- <input type="text" class="form-control" id="pay" name = "pay" placeholder="Pay" required/> -->
+				<div class="inputBox2">
+                    <input type="text" class="form-control" name="disc" id="disc" required="required">
+                    <span>Discount</span>
+                </div>
+			</div>
 			<div class="form-group" align="left">
 				<!-- <label>Payment Amount</label> -->
 				<!-- <input type="text" class="form-control" id="pay" name = "pay" placeholder="Pay" required/> -->
@@ -198,8 +206,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 				<!-- <label>Payment Amount</label> -->
 				<!-- <input type="text" class="form-control" id="pay" name = "pay" placeholder="Pay" required/> -->
 				<div class="inputBox2">
-                    <input type="text" class="form-control" name="disc" id="disc" required="required">
-                    <span>Discount</span>
+                    <input type="text" class="form-control" name="subtot" id="subtot" required="required">
+                    <span>Subtotal</span>
                 </div>
 			</div>
 			<div class="form-group" align="left">
@@ -239,7 +247,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 	
 		getProductCode();
 		
-		function getProductCode(){
+		function getProductCode()
+        {
 			$("#procode").empty();
 			$("#procode").keyup(function (e){
 				//var q = $("#procode").val();
@@ -260,31 +269,60 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 		
 		$(function()
         {
-			$("#price, #qty").on("keydown keyup click",qty);
+			$("#price, #qty").on("focus change input keydown keyup click",qty);
 			function qty(){
                 var sum = (
-				Number($("#price").val())*Number($("#qty").val())
+				Number($("#price").val()) * Number($("#qty").val())
 				);
-				$('#total').val(sum);
+                $('#total').val(sum);
 				console.log(sum);
 			}
 		});
 
-        $(function(){
-			$("#pay,#finaltotal, #disc").on("keydown keyup click",finaltot);
-			function finaltot(){
-                var disc = (
-					Number($("#disc").val()) * Number($("#finaltotal").val()) /100
+        // $(function(){
+		// 	$("#pay,#finaltotal, #disc").on("keydown keyup click",finaltot);
+		// 	function finaltot(){
+        //         var disc = (
+		// 			Number($("#disc").val()) * Number($("#finaltotal").val()) /100
+		// 		);
+        //         var result = (
+        //             Number($("#pay").val()) + disc
+        //         );
+		// 		var sum = (
+		// 			result - Number($("#finaltotal").val())
+		// 		);
+		// 		$('#bal').val(sum);
+		// 	}
+		// });
+
+        $(function()
+        {
+			$("#finaltotal, #disc").on("focus change input keydown keyup click",totdiscount);
+			function totdiscount(){
+				var disc = (
+					Number($("#disc").val()) * Number($("#finaltotal").val()) / 100 
 				);
                 var result = (
-                    Number($("#pay").val()) + disc
+                    Number($("#finaltotal").val()) - disc
                 );
-				var sum = (
-					result - Number($("#finaltotal").val())
-				);
-				$('#bal').val(sum);
+                var yawa = (
+                    Number($("#pay").val()) -  Number($("#subtot").val())
+                );
+				$('#subtot').val(result);
+                $('#bal').val(yawa);
 			}
 		});
+
+        $(function(){
+			$("#pay,#subtot").on("focus change input keydown keyup click",finaltot);
+			function finaltot(){
+                var result = (
+                    Number($("#pay").val()) -  Number($("#subtot").val())
+                );
+				$('#bal').val(result);
+			}
+		});
+
 
         function addProduct()
         {
@@ -324,6 +362,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
                 total += Number(products.total);
 
                     $('#finaltotal').val(total);
+                    $('#subtot').val(total);
                 
                 $table.append($row);
 
@@ -338,11 +377,16 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
             product_total_cost=parseInt($(e).parent().parent().find('td:last').text(),10);
             total-=product_total_cost;
             $('#finaltotal').val(total);
+            $('#subtot').val(total);
             $(e).parent().parent().remove();
         }
 	
 	</script>
-	
+	<div class="inputBox1">
+                    <form>
+                        <div class="inputBtn"><input type="submit" name="purchase" value="Purchase"></div>
+                    </form>
+                </div>
     </form>
 	</body>
 </html>

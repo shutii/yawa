@@ -26,10 +26,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 </head>
 <body>
 <form action="saveCat.php" method="post">
-<div class="container3">
-<div class="welcome">
-    <h2><?php echo $_SESSION['fname']; echo " ", $_SESSION['lname'];?></h2>
-</div>
+<div class="container2">
+
 <table class="kini">
     <div class="title">
         <h1>New Category</h1>

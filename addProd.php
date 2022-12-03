@@ -6,10 +6,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
 ?>
 
 <title>New Products</title>
-    <div class="container3">
-        <div class="welcome">
+    <div class="container2">
+        <!-- <div class="welcome">
             <h2><?php echo $_SESSION['fname']; echo " ", $_SESSION['lname'];?></h2>
-        </div>
+        </div> -->
         <div class="title">
             <h1>New Category</h1>
         </div>
@@ -59,9 +59,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['uname']))
             <div class="inputBtn">
                 <input type="submit" name="save" value="Save">
             </div>
-        </form>
+            <p style="color:rgb(133, 133, 133)">Change your mind? <a href="home.php" class="logh">Back Home</a></p>
+            </form>
     </div>
-<p style="color:rgb(133, 133, 133)">Change your mind? <a href="home.php" class="logh">Back Home</a></p>
 
 <?php 
 } 
